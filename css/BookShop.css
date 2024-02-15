@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1.title {
+    padding-inline: 10px;
+    text-align: center;
+}
+
+.book-shop {
+    padding: 10px;
+}
+
+.thead tr{
+    display: flex;
+    min-width: 100vh;
+    padding: 15px 10px;
+}
+
+td {
+    min-width: 200px;
+
+}
