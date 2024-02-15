@@ -51,5 +51,10 @@ function addBook(title, price){
     gBooks.push(newBook)
 }
 
+function readBook(bookId){
+    const book = gBooks.find(book => book.id === bookId)
+    return book
+}
+
 
 
