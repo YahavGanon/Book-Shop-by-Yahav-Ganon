@@ -30,5 +30,11 @@ function makeId(length = 5) {
     return id
 }
 
+function removeBook(bookId) {
+    const bookIdx = gBooks.findIndex(book => book.id === bookId)
+    gBooks.splice(bookIdx, 1)
+}
+
+
 
 
