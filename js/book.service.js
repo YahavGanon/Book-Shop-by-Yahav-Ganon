@@ -35,6 +35,21 @@ function removeBook(bookId) {
     gBooks.splice(bookIdx, 1)
 }
 
+function updatePrice(bookId) {
+    const bookIdx = gBooks.findIndex(book => book.id === bookId)
+    const priceBook = +prompt('Enter the price of the book: ', gBooks[bookIdx].price)
+    gBooks[bookIdx].price = priceBook
+}
+
+function addBook(title, price){
+    const newBook = {
+        id: makeId(),
+        title,
+        price: price,
+        imgUrl: 'img/richdadpoordad.png'
+    }
+    gBooks.push(newBook)
+}
 
 
 

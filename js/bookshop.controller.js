@@ -9,7 +9,7 @@ function render() {
 <tr>
 <td>${book.title}</td>
 <td>${book.price}</td>
-<td><button>Read</button> <button>Update</button> <button onClick="onRemoveBook('${book.id}')">Delete</button></td>
+<td><button>Read</button> <button onClick="onUpdateBook('${book.id}')">Update</button> <button onClick="onRemoveBook('${book.id}')">Delete</button></td>
 </tr>
 `)
 const elBooks = document.querySelector ('.book-shop')
@@ -21,8 +21,16 @@ function onRemoveBook(bookId){
     render()
 }
 
-function onUpdateBook(){
-    
+function onUpdateBook(bookId){
+    updatePrice(bookId)
+    render()
+}
+
+function onAddBook(){
+    const bookName = prompt('Enter the title of the Book: ')
+    const bookPrice = +prompt('Enter the price of the book: ')
+    addBook(bookName, bookPrice)
+    render()
 }
 
 
