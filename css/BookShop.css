@@ -40,3 +40,12 @@ td {
 .btn-x {
     margin: 0 auto;
 }
+
+footer {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    background-color: rgb(243, 167, 109);
+    padding: 10px 10px;
+    margin-top: auto;
+}

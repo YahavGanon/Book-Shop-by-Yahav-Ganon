@@ -7,7 +7,7 @@ function onInit() {
 function render() {
     const strHTML = gBooks.map(book => `
 <tr>
-<td>${book.title}</td>
+<td class='bookTitle'>${book.title}</td>
 <td>${book.price}</td>
 <td><button onClick="onReadBook('${book.id}')">Read</button> <button onClick="onUpdateBook('${book.id}')">Update</button> <button onClick="onRemoveBook(event, '${book.id}')">Delete</button></td>
 </tr>

@@ -64,19 +64,25 @@ function readBook(bookId) {
 }
 
 function _savebooks() {
-saveToStorage(BOOK_DB, gBooks)
+    saveToStorage(BOOK_DB, gBooks)
 }
 
-function filterByName(){
-    const searchInput = document.getElementById('oninput')
-    const rows = document.querySelectorAll('table tbody tr td')
-    console.log(rows)
-    rows.filter((row) => {
-        row.querySelector("td").textContent.toLowerCase().startsWith(searchInput)
-        ? (row.style.display = "")
-        : (row.style.display = "none");
-    });
+function filterByName() {
+    const searchInput = document.querySelector('input[type="text"]').value.toLowerCase()
+    console.log(searchInput)
+    const rows = document.querySelectorAll(".book-shop tbody tr")
+    // console.log(rows)
+    // console.log(Array.from(rows))
+    rows.forEach((row) => {
+        const title = row.querySelector('.bookTitle').textContent.toLowerCase()
+        if(title.includes(searchInput)){
+            row.style.display = ''
+        }else{
+            row.style.display = "none"
+        }
+    })
 }
+    
 
 
 
