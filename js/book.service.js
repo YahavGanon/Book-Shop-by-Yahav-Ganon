@@ -67,5 +67,16 @@ function _savebooks() {
 saveToStorage(BOOK_DB, gBooks)
 }
 
+function filterByName(){
+    const searchInput = document.getElementById('oninput')
+    const rows = document.querySelectorAll('table tbody tr td')
+    console.log(rows)
+    rows.filter((row) => {
+        row.querySelector("td").textContent.toLowerCase().startsWith(searchInput)
+        ? (row.style.display = "")
+        : (row.style.display = "none");
+    });
+}
+
 
 

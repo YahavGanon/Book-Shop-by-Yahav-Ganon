@@ -10,7 +10,9 @@
 
 <body onload="onInit()">
     <h1 class="title">Book Shop</h1>
-    <section class="addButtonParent">
+    <section class="addbuttonparent">
+        <input type="text" placeholder="Search book..." oninput="filterByName()"/>
+        <button>Clear</button>
         <button onClick="onAddBook()">Add Book</button>
     </section>
     <table class="book-shop">
@@ -28,16 +30,36 @@
         <form method="dialog">
             <h2>Book: <span></span></h2>
             <pre></pre>
-            <button>X</button>
+            <button class="btn-x">X</button>
         </form >
     </dialog>
-    <dialog class="dead-book">
+    <dialog class="deletion-modal">
             <h2>Deleted successfully🏌️</h2>
+    </dialog>
+    <dialog class="update-modal">
+            <h2>successfully updated👷‍♂️</h2>
+    </dialog>
+    <dialog class="adding-modal">
+            <h2>successfully added✅</h2>
     </dialog>
 
     <script src="js/storage.service.js"></script>
     <script src="js/book.service.js"></script>
     <script src="js/bookshop.controller.js"></script>
+    <footer>
+        <section>
+            <span>Expensive (above 200)</span>
+            <span class="total-todos">0</span>,
+        </section>
+        <section>
+            <span>Average (80 - 200)</span>
+            <span class="active-todos">0</span>
+        </section>
+        <section>
+            <span>Cheap (below 80)</span>
+            <span class="active-todos">0</span>
+        </section>
+    </footer>
 </body>
 
 </html>

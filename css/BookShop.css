@@ -30,6 +30,13 @@ td {
     min-width: 200px;
 }
 
-.addButtonParent {
+.addbuttonparent {
     text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(243, 167, 109);
+}
+
+.btn-x {
+    margin: 0 auto;
 }
