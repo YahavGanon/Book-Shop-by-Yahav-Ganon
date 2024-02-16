@@ -1,15 +1,19 @@
 'use strict'
+const BOOK_DB = 'bookDB'
 var gBooks
-
-function getBooks() {
-    gBooks = [
-        creatBook('RichDadPoorDad'),
-        creatBook('TheSnowBall'),
-        creatBook('TheSecret'),
-    ]
-    console.log(gBooks)
-}
 getBooks()
+function getBooks() {
+    gBooks = loadFromStorage('bookDB')
+    console.log('gBooks:', gBooks)
+    if (!gBooks) {
+        gBooks = [
+            creatBook('RichDadPoorDad'),
+            creatBook('TheSnowBall'),
+            creatBook('TheSecret'),
+        ]
+        _savebooks()
+    }
+}
 
 function creatBook(title) {
     return {
@@ -33,15 +37,17 @@ function makeId(length = 5) {
 function removeBook(bookId) {
     const bookIdx = gBooks.findIndex(book => book.id === bookId)
     gBooks.splice(bookIdx, 1)
+    _savebooks()
 }
 
 function updatePrice(bookId) {
     const bookIdx = gBooks.findIndex(book => book.id === bookId)
     const priceBook = +prompt('Enter the price of the book: ', gBooks[bookIdx].price)
     gBooks[bookIdx].price = priceBook
+    _savebooks()
 }
 
-function addBook(title, price){
+function addBook(title, price) {
     const newBook = {
         id: makeId(),
         title,
@@ -49,11 +55,16 @@ function addBook(title, price){
         imgUrl: 'img/richdadpoordad.png'
     }
     gBooks.push(newBook)
+    _savebooks()
 }
 
-function readBook(bookId){
+function readBook(bookId) {
     const book = gBooks.find(book => book.id === bookId)
     return book
+}
+
+function _savebooks() {
+saveToStorage(BOOK_DB, gBooks)
 }
 
 
