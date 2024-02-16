@@ -17,6 +17,7 @@ h1.title {
 
 .book-shop {
     padding: 10px;
+    text-align: center;
 }
 
 .thead tr{
@@ -27,4 +28,8 @@ h1.title {
 
 td {
     min-width: 200px;
+}
+
+.addButtonParent {
+    text-align: center;
 }
