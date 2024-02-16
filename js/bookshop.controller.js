@@ -16,9 +16,16 @@ function render() {
     elBooks.innerHTML = strHTML.join('')
 }
 
-function onRemoveBook(bookId) {
+function onRemoveBook(ev, bookId) {
+    ev.stopPropagation()
     removeBook(bookId)
     render()
+    const elBookDeleted = document.querySelector('.dead-book')
+    elBookDeleted.show()
+    setTimeout(() => {
+        elBookDeleted.close()
+    }, 2000);
+
 }
 
 function onUpdateBook(bookId) {
