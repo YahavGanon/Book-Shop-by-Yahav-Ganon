@@ -53,7 +53,7 @@ function addBook(title, price) {
         id: makeId(),
         title,
         price: price,
-        imgUrl: 'img/richdadpoordad.png'
+        imgUrl: 'img/starsChangingColors.gif'
     }
     gBooks.push(newBook)
     _savebooks()
@@ -69,22 +69,13 @@ function _savebooks() {
 }
 
 function filterByName() {
-    const elH3 = document.querySelector('.book-shop h3')
     const searchInput = document.querySelector('input[type="text"]').value.toLowerCase()
-    console.log(searchInput)
-    const rows = document.querySelectorAll(".book-shop tbody tr")
-    rows.forEach((row) => {
-        const title = row.querySelector('.bookTitle').textContent.toLowerCase()
-        if (title.includes(searchInput)) {
-            row.style.display = ''
-        } else {
-            row.style.display = "none"
-        }
+    const filteredItems = gBooks.filter((book) => {
+        return book.title.toLowerCase().includes(searchInput)
     })
-    if(rows.style.display === "none"){
-        elH3.classList.remove('hidden')
-    }
+    render(filteredItems)
 }
+
 
 function updateStats() {
     const counterStats = [0, 0, 0];
