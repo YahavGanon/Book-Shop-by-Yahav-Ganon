@@ -65,12 +65,14 @@ function onAddBook() {
 }
 
 function onReadBook(bookId) {
+    const bookIdx = gBooks.findIndex(book => book.id === bookId)
     const book = readBook(bookId)
     const elBookDetails = document.querySelector('.book-details')
     const elSpan = elBookDetails.querySelector('h2 span')
     const elPre = elBookDetails.querySelector('pre')
     elSpan.innerText = book.title
     elPre.innerText = JSON.stringify(book, null, 2)
+    elBookDetails.style.backgroundImage = `url(${gBooks[bookIdx].imgUrl})`;
     elBookDetails.showModal()
 }
 

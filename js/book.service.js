@@ -7,21 +7,21 @@ function getBooks() {
     console.log('gBooks:', gBooks)
     if (!gBooks) {
         gBooks = [
-            creatBook('Rich Dad Poor Dad'),
-            creatBook('The Snow Ball'),
-            creatBook('The Secret'),
+            creatBook('Rich Dad Poor Dad', 70, 'img/richdadpoordad.png'),
+            creatBook('The Snow Ball', 120, 'img/snowball.png'),
+            creatBook('The Secret', 225, 'img/thesecret.webp'),
         ]
         _savebooks()
     }
     updateStats()
 }
 
-function creatBook(title) {
+function creatBook(title, price, imgUrl) {
     return {
         id: makeId(),
         title,
-        price: 120,
-        imgUrl: 'img/richdadpoordad.png'
+        price: price,
+        imgUrl: imgUrl,
     }
 }
 
@@ -69,6 +69,7 @@ function _savebooks() {
 }
 
 function filterByName() {
+    const elH3 = document.querySelector('.book-shop h3')
     const searchInput = document.querySelector('input[type="text"]').value.toLowerCase()
     console.log(searchInput)
     const rows = document.querySelectorAll(".book-shop tbody tr")
@@ -80,6 +81,9 @@ function filterByName() {
             row.style.display = "none"
         }
     })
+    if(rows.style.display === "none"){
+        elH3.classList.remove('hidden')
+    }
 }
 
 function updateStats() {
