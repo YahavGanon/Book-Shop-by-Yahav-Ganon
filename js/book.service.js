@@ -7,12 +7,13 @@ function getBooks() {
     console.log('gBooks:', gBooks)
     if (!gBooks) {
         gBooks = [
-            creatBook('RichDadPoorDad'),
-            creatBook('TheSnowBall'),
-            creatBook('TheSecret'),
+            creatBook('Rich Dad Poor Dad'),
+            creatBook('The Snow Ball'),
+            creatBook('The Secret'),
         ]
         _savebooks()
     }
+    updateStats()
 }
 
 function creatBook(title) {
@@ -71,18 +72,39 @@ function filterByName() {
     const searchInput = document.querySelector('input[type="text"]').value.toLowerCase()
     console.log(searchInput)
     const rows = document.querySelectorAll(".book-shop tbody tr")
-    // console.log(rows)
-    // console.log(Array.from(rows))
     rows.forEach((row) => {
         const title = row.querySelector('.bookTitle').textContent.toLowerCase()
-        if(title.includes(searchInput)){
+        if (title.includes(searchInput)) {
             row.style.display = ''
-        }else{
+        } else {
             row.style.display = "none"
         }
     })
 }
-    
+
+function updateStats() {
+    const counterStats = [0, 0, 0];
+    const elExpensive = document.querySelector('.expensive')
+    const elAverage = document.querySelector('.average')
+    const elCheap = document.querySelector('.cheap')
+
+    gBooks.forEach((book) => {
+        if (book.price < 80) {
+            counterStats[2]++; // Cheap
+        } else if (book.price >= 80 && book.price <= 200) {
+            counterStats[1]++; // Average
+        } else {
+            counterStats[0]++; // Expensive
+        }
+    });
+
+    elExpensive.innerText = counterStats[0];
+    elAverage.innerText = counterStats[1];
+    elCheap.innerText = counterStats[2];
+}
+
+
+
 
 
 

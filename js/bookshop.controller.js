@@ -5,6 +5,14 @@ function onInit() {
 }
 
 function render() {
+//     const elTitle = document.querySelector('.book-shop thead tr')
+//     const titleHTML = elTitle.map(title => `
+// <tr>
+//                 <th>Title</th>
+//                 <th>Price</th>
+//                 <th>Actions</th>
+//             </tr>
+// `)
     const strHTML = gBooks.map(book => `
 <tr>
 <td class='bookTitle'>${book.title}</td>
@@ -20,6 +28,7 @@ function onRemoveBook(ev, bookId) {
     ev.stopPropagation()
     removeBook(bookId)
     render()
+    updateStats()
     const elBookModal = document.querySelector('.deletion-modal')
     elBookModal.show()
     setTimeout(() => {
@@ -30,6 +39,7 @@ function onRemoveBook(ev, bookId) {
 function onUpdateBook(bookId) {
     updatePrice(bookId)
     render()
+    updateStats()
     const elPopModal = document.querySelector('.update-modal')
     elPopModal.show()
     setTimeout(() => {
@@ -45,6 +55,7 @@ function onAddBook() {
     else {
         addBook(bookName, bookPrice)
         render()
+        updateStats()
         const elPopModal = document.querySelector('.adding-modal')
         elPopModal.show()
         setTimeout(() => {
@@ -63,5 +74,8 @@ function onReadBook(bookId) {
     elBookDetails.showModal()
 }
 
-
+function clearInput() {
+    const elInput = document.querySelector('.addbuttonparent input')
+    elInput.value = ''
+}
 
