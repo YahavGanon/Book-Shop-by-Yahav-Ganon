@@ -8,13 +8,15 @@ const tableHeader = `
 <tr>
                 <th>Title</th>
                 <th>Price</th>
+                <th>Rating</th>
                 <th>Actions</th>
 </tr>`
 const tableRow = (book) => `
 <tr>
 <td class='bookTitle'>${book.title}</td>
 <td>${book.price}</td>
-<td><button onClick="onReadBook('${book.id}')">Read</button> <button onClick="onUpdateBook('${book.id}')">Update</button> <button onClick="onRemoveBook(event, '${book.id}')">Delete</button></td>
+<td>${book.rating}</td>
+<td><button onClick="onReadBook('${book.id}')">Read</button> <button onClick="onUpdateBook('${book.id}',${book.price})">Update</button> <button onClick="onRemoveBook(event, '${book.id}')">Delete</button></td>
 </tr>
 `
 
@@ -22,7 +24,8 @@ const card = (book) => `
 <div class="card">
 <div>${book.title}</div>
 <div>${book.price}</div>
-<div><button onClick="onReadBook('${book.id}')">Read</button> <button onClick="onUpdateBook('${book.id}')">Update</button> <button onClick="onRemoveBook(event, '${book.id}')">Delete</button></div>
+<div>${book.rating}</div>
+<div><button onClick="onReadBook('${book.id}')">Read</button> <button onClick="onUpdateBook('${book.id}',${book.price})">Update</button> <button onClick="onRemoveBook(event, '${book.id}')">Delete</button></div>
 </div>`
 var isCard = false
 
@@ -58,8 +61,10 @@ function onRemoveBook(ev, bookId) {
     }, 2000)
 }
 
-function onUpdateBook(bookId) {
-    updatePrice(bookId)
+function onUpdateBook(bookId, prevPrice) {
+    // const priceBook = +prompt('Enter the price of the book: ', gBooks[bookIdx].price)
+    const priceBook = +prompt('Enter the price of the book: ', prevPrice)
+    updatePrice(bookId, priceBook)
     render(gBooks)
     updateStats()
     const elPopModal = document.querySelector('.update-modal')
@@ -72,9 +77,12 @@ function onUpdateBook(bookId) {
 function onAddBook() {
     const bookName = prompt('Enter the title of the Book: ')
     const bookPrice = +prompt('Enter the price of the book: ')
+    const bookRating = +prompt('Enter the rating of the book: ')
+
+    if (bookRating > 5 || bookRating < 1) return 
     if (!bookName || !bookPrice) return
     else {
-        addBook(bookName, bookPrice)
+        addBook(bookName, bookPrice, bookRating)
         render(gBooks)
         updateStats()
         const elPopModal = document.querySelector('.adding-modal')
@@ -86,14 +94,13 @@ function onAddBook() {
 }
 
 function onReadBook(bookId) {
-    const bookIdx = gBooks.findIndex((book) => book.id === bookId)
     const book = readBook(bookId)
     const elBookDetails = document.querySelector('.book-details')
     const elSpan = elBookDetails.querySelector('h2 span')
     const elPre = elBookDetails.querySelector('pre')
     elSpan.innerText = book.title
     elPre.innerText = JSON.stringify(book, null, 2)
-    elBookDetails.style.backgroundImage = `url(${gBooks[bookIdx].imgUrl})`
+    elBookDetails.style.backgroundImage = `url(${book.imgUrl})`
     elBookDetails.showModal()
 }
 

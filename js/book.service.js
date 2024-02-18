@@ -11,7 +11,7 @@ function getBooks() {
             creatBook('The Snow Ball', 120, 'img/snowball.png'),
             creatBook('The Secret', 225, 'img/thesecret.webp'),
         ]
-        _savebooks()
+        _saveBooks()
     }
     updateStats()
 }
@@ -22,6 +22,7 @@ function creatBook(title, price, imgUrl) {
         title,
         price: price,
         imgUrl: imgUrl,
+        rating: getRandomIntInclusive(1, 5)
     }
 }
 
@@ -38,25 +39,26 @@ function makeId(length = 5) {
 function removeBook(bookId) {
     const bookIdx = gBooks.findIndex(book => book.id === bookId)
     gBooks.splice(bookIdx, 1)
-    _savebooks()
+    _saveBooks()
 }
 
-function updatePrice(bookId) {
+function updatePrice(bookId, priceBook) {
     const bookIdx = gBooks.findIndex(book => book.id === bookId)
-    const priceBook = +prompt('Enter the price of the book: ', gBooks[bookIdx].price)
     gBooks[bookIdx].price = priceBook
-    _savebooks()
+    _saveBooks()
 }
 
-function addBook(title, price) {
+function addBook(title, price, rating) {
     const newBook = {
         id: makeId(),
         title,
         price: price,
-        imgUrl: 'img/starsChangingColors.gif'
+        imgUrl: 'img/starsChangingColors.gif',
+        rating: rating,
+
     }
     gBooks.push(newBook)
-    _savebooks()
+    _saveBooks()
 }
 
 function readBook(bookId) {
@@ -64,7 +66,7 @@ function readBook(bookId) {
     return book
 }
 
-function _savebooks() {
+function _saveBooks() {
     saveToStorage(BOOK_DB, gBooks)
 }
 
