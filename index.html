@@ -8,6 +8,7 @@
     <title>BookShop</title>
 </head>
 <!-- style="background-image: url('img/background.jpg')" -->
+
 <body onload="onInit()">
     <h1 class="title">Book Shop</h1>
     <section class="addbuttonparent">
@@ -15,9 +16,19 @@
             <option>Table</option>
             <option>Cards</option>
         </select>
-        <input type="text" placeholder="Search book..." oninput="filterByName()" />
-        <button onclick="clearInput()">Clear</button>
-        <button onClick="onAddBook()">Add Book</button>
+        <div class="rate-line">
+            <select onchange="onFiltersBy()">
+                <option value=''>Select rating</option>
+                <option value='5'>5</option>
+                <option value='4'>4</option>
+                <option value='3'>3</option>
+                <option value='2'>2</option>
+                <option value='1'>1</option>
+            </select>
+            <input type="text" placeholder="Search book..." oninput="filterByName()" />
+            <button onclick="clearInput()">Clear</button>
+            <button onClick="onAddBook()">Add Book</button>
+        </div>
     </section>
     <div class="book-shop">
     </div>
@@ -58,4 +69,5 @@
     <script src="js/book.service.js"></script>
     <script src="js/bookshop.controller.js"></script>
 </body>
+
 </html>

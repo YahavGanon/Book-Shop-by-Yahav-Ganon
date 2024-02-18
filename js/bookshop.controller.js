@@ -1,7 +1,11 @@
 'use strict'
 
+var gQueryOptions = {
+    filterBy: { title: '', minRating: 1 },
+}
+
 function onInit() {
-    render(gBooks)
+    render()
 }
 
 const tableHeader = `
@@ -29,19 +33,21 @@ const card = (book) => `
 </div>`
 var isCard = false
 
-function render(items) {
+function render() {
+    const books = getBooks(gQueryOptions)
+    console.log('items:', books)
     const elBooks = document.querySelector('.book-shop')
-    if (items.length === 0) {
+    if (books.length === 0) {
         elBooks.innerHTML = `<h3 class ="noMatch">NO matching books were found...</h3>`
     } else {
         if (isCard) {
-            const strHTML = items.map(card)
+            const strHTML = books.map(card)
             elBooks.innerHTML = `<div class="cardParent">${strHTML.join(
                 ''
             )}</div>`
             // elBooks.innerHTML = strHTML.join('')
         } else {
-            const strHTML = items.map(tableRow)
+            const strHTML = books.map(tableRow)
             elBooks.innerHTML = `<table>${tableHeader}${strHTML.join(
                 ''
             )}</table>`
@@ -52,7 +58,7 @@ function render(items) {
 function onRemoveBook(ev, bookId) {
     ev.stopPropagation()
     removeBook(bookId)
-    render(gBooks)
+    render()
     updateStats()
     const elBookModal = document.querySelector('.deletion-modal')
     elBookModal.show()
@@ -65,7 +71,7 @@ function onUpdateBook(bookId, prevPrice) {
     // const priceBook = +prompt('Enter the price of the book: ', gBooks[bookIdx].price)
     const priceBook = +prompt('Enter the price of the book: ', prevPrice)
     updatePrice(bookId, priceBook)
-    render(gBooks)
+    render()
     updateStats()
     const elPopModal = document.querySelector('.update-modal')
     elPopModal.show()
@@ -79,11 +85,11 @@ function onAddBook() {
     const bookPrice = +prompt('Enter the price of the book: ')
     const bookRating = +prompt('Enter the rating of the book: ')
 
-    if (bookRating > 5 || bookRating < 1) return 
+    if (bookRating > 5 || bookRating < 1) return
     if (!bookName || !bookPrice) return
     else {
         addBook(bookName, bookPrice, bookRating)
-        render(gBooks)
+        render()
         updateStats()
         const elPopModal = document.querySelector('.adding-modal')
         elPopModal.show()
@@ -106,17 +112,29 @@ function onReadBook(bookId) {
 
 function clearInput() {
     const elInput = document.querySelector('.addbuttonparent input')
+    const elMinRating = document.querySelector('.rate-line select')
     elInput.value = ''
-    render(gBooks)
+    elMinRating.value = ''
+    gQueryOptions.filterBy.title = ''
+    gQueryOptions.filterBy.minRating = 1
+    render()
 }
 
 function onPageMode(elSelect) {
     const selectValue = elSelect.value
     if (selectValue === 'Cards') {
         isCard = true
-        render(gBooks)
+        render()
     } else {
         isCard = false
-        render(gBooks)
+        render()
     }
+}
+
+function onFiltersBy() {
+    const elMinRating = document.querySelector('.rate-line select')
+    gQueryOptions.filterBy.minRating = elMinRating.value
+    const elInput = document.querySelector('.addbuttonparent input')
+    gQueryOptions.filterBy.title = elInput.value.trim().toLowerCase()
+    render()
 }
